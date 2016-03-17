@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using WinRTXamlToolkit.Controls.Extensions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Shapes;
 using SharpDX.Direct2D1;
 using SharpDX.Mathematics.Interop;
+using WinRTXamlToolkit.Controls.Extensions;
 
-namespace WinRTXamlToolkit.Composition.Renderers
+namespace XamlRenderer.Rendering.Renderers
 {
     public static class RectangleRenderer
     {

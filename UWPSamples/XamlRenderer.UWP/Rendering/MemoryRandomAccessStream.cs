@@ -2,7 +2,7 @@
 using System.IO;
 using Windows.Storage.Streams;
 
-namespace WinRTXamlToolkit.Composition
+namespace XamlRenderer.Rendering
 {
     //
     // http://canbilgin.wordpress.com/2012/06/06/how-to-convert-byte-array-to-irandomaccessstream/

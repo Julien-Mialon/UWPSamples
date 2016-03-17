@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using SharpDX.Direct2D1;
 using Windows.UI.Xaml;
+using SharpDX.Direct2D1;
 
-namespace WinRTXamlToolkit.Composition.Renderers
+namespace XamlRenderer.Rendering.Renderers
 {
     public static class FrameworkElementRenderer
     {

@@ -2,18 +2,25 @@
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using SharpDX;
-using WinRTXamlToolkit.Controls.Extensions;
-using WinRTXamlToolkit.Imaging;
 using Windows.Foundation;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using AdaptiveTiles.Rendering;
+using SharpDX;
 using SharpDX.Mathematics.Interop;
+using WinRTXamlToolkit.Controls.Extensions;
+using Brush = Windows.UI.Xaml.Media.Brush;
 using Jupiter = Windows.UI.Xaml;
 using D2D = SharpDX.Direct2D1;
+using GradientStop = Windows.UI.Xaml.Media.GradientStop;
+using GradientStopCollection = Windows.UI.Xaml.Media.GradientStopCollection;
+using ImageBrush = Windows.UI.Xaml.Media.ImageBrush;
+using ImageSource = Windows.UI.Xaml.Media.ImageSource;
+using LinearGradientBrush = Windows.UI.Xaml.Media.LinearGradientBrush;
+using SolidColorBrush = Windows.UI.Xaml.Media.SolidColorBrush;
+using SweepDirection = Windows.UI.Xaml.Media.SweepDirection;
+using Transform = Windows.UI.Xaml.Media.Transform;
 
-namespace WinRTXamlToolkit.Composition
+namespace XamlRenderer.Rendering
 {
     public static class Conversion
     {

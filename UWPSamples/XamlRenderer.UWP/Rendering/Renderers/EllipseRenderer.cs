@@ -1,13 +1,11 @@
 ﻿using System.Threading.Tasks;
-using SharpDX;
-using WinRTXamlToolkit.Controls.Extensions;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Shapes;
 using SharpDX.Mathematics.Interop;
-using Jupiter = Windows.UI.Xaml;
+using WinRTXamlToolkit.Controls.Extensions;
 using D2D = SharpDX.Direct2D1;
+using Ellipse = Windows.UI.Xaml.Shapes.Ellipse;
 
-namespace WinRTXamlToolkit.Composition.Renderers
+namespace XamlRenderer.Rendering.Renderers
 {
     public static class EllipseRenderer
     {

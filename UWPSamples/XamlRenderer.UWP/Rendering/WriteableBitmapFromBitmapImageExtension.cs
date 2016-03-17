@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using WinRTXamlToolkit.Net;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
+using WinRTXamlToolkit.Imaging;
+using WinRTXamlToolkit.Net;
 
-namespace WinRTXamlToolkit.Imaging
+namespace XamlRenderer.Rendering
 {
     /// <summary>
     /// WriteableBitmap extensions for creating or populating a WriteableBitmap from a BitmapImage (or rather the source Uri of the image).

@@ -3,10 +3,9 @@ using Windows.Foundation;
 using SharpDX.Mathematics.Interop;
 using WinRTXamlToolkit.Controls.Extensions;
 using D2D = SharpDX.Direct2D1;
-using WIC = SharpDX.WIC;
 using Jupiter = Windows.UI.Xaml;
 
-namespace WinRTXamlToolkit.Composition.Renderers
+namespace XamlRenderer.Rendering.Renderers
 {
     public static class ImageRenderer
     {

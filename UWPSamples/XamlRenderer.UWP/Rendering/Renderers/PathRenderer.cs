@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SharpDX;
-using WinRTXamlToolkit.Controls.Extensions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
+using SharpDX;
 using SharpDX.Mathematics.Interop;
+using WinRTXamlToolkit.Controls.Extensions;
+using ArcSegment = Windows.UI.Xaml.Media.ArcSegment;
+using BezierSegment = Windows.UI.Xaml.Media.BezierSegment;
 using Jupiter = Windows.UI.Xaml;
 using D2D = SharpDX.Direct2D1;
+using EllipseGeometry = Windows.UI.Xaml.Media.EllipseGeometry;
+using Geometry = Windows.UI.Xaml.Media.Geometry;
+using GeometryGroup = Windows.UI.Xaml.Media.GeometryGroup;
+using PathGeometry = Windows.UI.Xaml.Media.PathGeometry;
+using PathSegment = Windows.UI.Xaml.Media.PathSegment;
+using QuadraticBezierSegment = Windows.UI.Xaml.Media.QuadraticBezierSegment;
+using RectangleGeometry = Windows.UI.Xaml.Media.RectangleGeometry;
 
-namespace WinRTXamlToolkit.Composition.Renderers
+namespace XamlRenderer.Rendering.Renderers
 {
     public static class PathRenderer
     {

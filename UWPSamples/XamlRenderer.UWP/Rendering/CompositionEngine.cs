@@ -4,24 +4,27 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Shapes;
 using SharpDX;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
-using WinRTXamlToolkit.Composition.Renderers;
-using WinRTXamlToolkit.Controls.Extensions;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Shapes;
-using D2D = SharpDX.Direct2D1;
 using SharpDX.DXGI;
 using SharpDX.Mathematics.Interop;
+using WinRTXamlToolkit.Controls.Extensions;
+using XamlRenderer.Rendering.Renderers;
+using D2D = SharpDX.Direct2D1;
 using Device = SharpDX.Direct3D11.Device;
+using Ellipse = Windows.UI.Xaml.Shapes.Ellipse;
+using FeatureLevel = SharpDX.Direct3D.FeatureLevel;
+using Image = Windows.UI.Xaml.Controls.Image;
 using WIC = SharpDX.WIC;
 using Jupiter = Windows.UI.Xaml;
 using Path = Windows.UI.Xaml.Shapes.Path;
 
-namespace WinRTXamlToolkit.Composition
+namespace XamlRenderer.Rendering
 {
 	public class CompositionEngine
 	{
@@ -191,88 +194,6 @@ namespace WinRTXamlToolkit.Composition
 						D2D.BitmapOptions.CpuRead | D2D.BitmapOptions.CannotDraw));
 
 			return cpuReadBitmap;
-		}
-
-		public async Task<MemoryStream> RenderToPngStream(FrameworkElement fe)
-		{
-			int width = (int)Math.Ceiling(fe.ActualWidth);
-			int height = (int)Math.Ceiling(fe.ActualHeight);
-
-			if (width == 0 ||
-				height == 0)
-			{
-				throw new InvalidOperationException("Can't render an empty element. ActualWidth or ActualHeight equal 0. Consider awaiting a WaitForNonZeroSizeAsync() call or invoking Measure()/Arrange() before the call to Render().");
-			}
-
-			// pixel format with transparency/alpha channel and RGB values premultiplied by alpha
-			Guid pixelFormat = WIC.PixelFormat.Format32bppPRGBA;
-
-			using (WIC.Bitmap wicBitmap = new WIC.Bitmap(
-				this.WicFactory,
-				width,
-				height,
-				pixelFormat,
-				WIC.BitmapCreateCacheOption.CacheOnLoad))
-			{
-				D2D.RenderTargetProperties renderTargetProperties = new D2D.RenderTargetProperties(
-					D2D.RenderTargetType.Default,
-					new D2D.PixelFormat(
-						Format.R8G8B8A8_UNorm, D2D.AlphaMode.Premultiplied),
-					//new D2DPixelFormat(Format.Unknown, AlphaMode.Unknown), // use this for non-alpha, cleartype antialiased text
-					0,
-					0,
-					D2D.RenderTargetUsage.None,
-					D2D.FeatureLevel.Level_DEFAULT);
-				using (D2D.WicRenderTarget renderTarget = new D2D.WicRenderTarget(
-					this.D2DFactory,
-					wicBitmap,
-					renderTargetProperties)
-				{
-					//TextAntialiasMode = TextAntialiasMode.Cleartype // this only works with the pixel format with no alpha channel
-					TextAntialiasMode =
-							D2D.TextAntialiasMode.Grayscale
-					// this is the best we can do for bitmaps with alpha channels
-				})
-				{
-					await Compose(renderTarget, fe);
-				}
-
-				// TODO: There is no need to encode the bitmap to PNG - we could just copy the texture pixel buffer to a WriteableBitmap pixel buffer.
-				return GetBitmapAsStream(wicBitmap);
-			}
-		}
-
-		private MemoryStream GetBitmapAsStream(WIC.Bitmap wicBitmap)
-		{
-			int width = wicBitmap.Size.Width;
-			int height = wicBitmap.Size.Height;
-			MemoryStream ms = new MemoryStream();
-
-			using (WIC.WICStream stream = new WIC.WICStream(
-				this.WicFactory,
-				ms))
-			{
-				using (WIC.PngBitmapEncoder encoder = new WIC.PngBitmapEncoder(WicFactory))
-				{
-					encoder.Initialize(stream);
-
-					using (WIC.BitmapFrameEncode frameEncoder = new WIC.BitmapFrameEncode(encoder))
-					{
-						frameEncoder.Initialize();
-
-						frameEncoder.SetSize(width, height);
-						Guid format = WIC.PixelFormat.Format32bppBGRA;
-						frameEncoder.SetPixelFormat(ref format);
-						frameEncoder.WriteSource(wicBitmap);
-						frameEncoder.Commit();
-					}
-
-					encoder.Commit();
-				}
-			}
-
-			ms.Position = 0;
-			return ms;
 		}
 
 		public async Task Compose(D2D.RenderTarget renderTarget, FrameworkElement fe)

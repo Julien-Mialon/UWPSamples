@@ -1,6 +1,6 @@
 ﻿using SharpDX.Mathematics.Interop;
 
-namespace AdaptiveTiles.Rendering
+namespace XamlRenderer.Rendering
 {
 	public static class MatrixExtensions
 	{

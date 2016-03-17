@@ -12,8 +12,8 @@ using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Imaging;
 using AdaptiveTiles.Model;
 using WinRTXamlToolkit.AwaitableUI;
-using WinRTXamlToolkit.Composition;
 using System.Runtime.InteropServices.WindowsRuntime;
+using XamlRenderer.Rendering;
 
 namespace AdaptiveTiles.Tiles
 {
@@ -101,7 +101,10 @@ namespace AdaptiveTiles.Tiles
 
 		private static async Task Save(FrameworkElement ui, string filename, int width, int height)
 		{
-			//MemoryStream stream = await WriteableBitmapRenderExtensions.RenderToPngStream(ui);
+			StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+			await WriteableBitmapRenderExtensions.RenderToPngFile(file, ui);
+
+			/*
 			WriteableBitmap image = await WriteableBitmapRenderExtensions.Render(ui);
 
 
@@ -115,18 +118,11 @@ namespace AdaptiveTiles.Tiles
 				byte[] pixels = new byte[pixelStream.Length];
 				await pixelStream.ReadAsync(pixels, 0, pixels.Length);
 				// Save the image file with jpg extension 
-				encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, (uint) image.PixelWidth, (uint) image.PixelHeight, 96.0, 96.0, pixels);
+				encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, (uint)image.PixelWidth, (uint)image.PixelHeight, 96.0, 96.0, pixels);
 				await encoder.FlushAsync();
 				await stream.FlushAsync();
 			}
-			/*
-			StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
-			using (Stream outputStream = await file.OpenStreamForWriteAsync())
-			{
-				await stream.CopyToAsync(outputStream);
-				await outputStream.FlushAsync();
-			}
-			*/
+			// */
 		}
 	}
 }

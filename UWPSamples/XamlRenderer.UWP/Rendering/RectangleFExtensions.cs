@@ -1,6 +1,6 @@
 ﻿using SharpDX.Mathematics.Interop;
 
-namespace WinRTXamlToolkit.Composition
+namespace XamlRenderer.Rendering
 {
     public static class RectangleFExtensions
     {

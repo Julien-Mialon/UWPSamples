@@ -2,7 +2,7 @@
 using Jupiter = Windows.UI.Xaml;
 using D2D = SharpDX.Direct2D1;
 
-namespace WinRTXamlToolkit.Composition.Renderers
+namespace XamlRenderer.Rendering.Renderers
 {
     public static class ShapeExtensions
     {
